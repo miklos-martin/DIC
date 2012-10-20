@@ -1,4 +1,4 @@
-class Container
+class DIC
   constructor: () ->
     @values = {}
 
@@ -11,4 +11,4 @@ class Container
     catch e
       return @values[key]
 
-module.exports = new Container
+module.exports = new DIC
