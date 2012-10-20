@@ -1,0 +1,6 @@
+parameters:
+  param: it is rewritten
+
+services:
+  foo:
+    module: '../test/fixtures/newFoo'

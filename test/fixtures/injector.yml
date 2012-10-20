@@ -1,0 +1,7 @@
+services:
+  bar:
+    module: '../test/fixtures/bar'
+    arguments:
+      - 'injected'
+      - '%param%'
+      - '@foo'

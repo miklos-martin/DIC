@@ -1,3 +1,3 @@
 parameters:
-  key: Value from parameters.yml
-  key2: This is an other value
+  param: Value from parameters.yml
+  param_two: This is an other value
