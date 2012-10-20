@@ -11,4 +11,4 @@ class Container
     catch e
       return @values[key]
 
-exports.container = new Container
+module.exports = new Container
