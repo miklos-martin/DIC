@@ -1,8 +1,4 @@
 class Bar
-  constructor: (config) ->
-    # It's not that pretty for now
-    @injected = config[0]
-    @param = config[1]
-    @foo = config[2]
+  constructor: (@injected, @param, @foo) ->
 
 module.exports = Bar

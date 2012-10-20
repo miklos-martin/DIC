@@ -30,7 +30,10 @@ class Compiler
               arg = @nake arg
               arg = if arg in deps then c.get arg else arg
               args.push arg
-          new cl args
+
+          obj = new cl
+          cl.apply obj, args
+          obj
 
         @container.set id, lambda
 
