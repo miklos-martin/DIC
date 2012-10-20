@@ -1,6 +1,6 @@
 chai = require 'chai'
 chai.should()
-container = require '../dic'
+container = require '../lib/dic'
 
 describe 'DIC', ->
   it ' should set a parameter', ->
