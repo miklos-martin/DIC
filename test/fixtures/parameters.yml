@@ -1,0 +1,3 @@
+parameters:
+  key: Value from parameters.yml
+  key2: This is an other value

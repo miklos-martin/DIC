@@ -1,6 +1,7 @@
 class DIC
   constructor: () ->
     @values = {}
+    @set 'container', @
 
   set: (key, value) ->
     @values[key] = value
