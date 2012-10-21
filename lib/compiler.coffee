@@ -25,23 +25,28 @@ class Compiler
           cl = require service.module
           args = []
           if service.arguments?
-            deps = @resolveDeps service.arguments
-            for arg in service.arguments
-              arg = @nake arg
-              arg = if arg in deps then c.get arg else arg
-              args.push arg
+            args = @resolveDeps c, service.arguments
 
           obj = new cl
           cl.apply obj, args
+
+          if service.calls?
+            for method, call of service.calls
+              do (cl, method, call) =>
+                args = @resolveDeps c, call.arguments
+                obj[method].apply obj, args
           obj
 
         @container.set id, lambda
 
-  resolveDeps: (args) ->
+  resolveDeps: (container, args) ->
     deps = []
     for arg in args
       if arg.match(/^@/) or arg.match(/^%.*%$/)
-        deps.push @nake arg
+        deps.push container.get @nake arg
+      else
+        deps.push arg
+
     deps
 
   nake: (key) ->

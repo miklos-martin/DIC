@@ -1,0 +1,10 @@
+parameters:
+  setdata: "this has been injected by a set* method"
+
+services:
+  setter:
+    module: "../test/fixtures/setter"
+    calls:
+      setData:
+        arguments:
+          - '%setdata%'

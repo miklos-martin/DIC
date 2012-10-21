@@ -68,3 +68,12 @@ describe 'Compiler', ->
         bar.foo.bar.should.equal 'barbar'
 
         done()
+
+    it 'should inject dependencies through set* methods', (done) ->
+      yaml = "#{__dirname}/fixtures/config/setter.yml"
+      compiler.load yaml, ->
+        setter = container.get('setter')
+        setter.should.have.property 'data'
+        setter.data.should.equal container.get 'setdata'
+
+        done()
