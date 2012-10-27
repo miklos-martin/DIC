@@ -3,4 +3,4 @@ parameters:
 
 services:
   foo:
-    module: '../test/fixtures/newFoo'
+    module: 'test/fixtures/newFoo'

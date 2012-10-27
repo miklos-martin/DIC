@@ -22,7 +22,7 @@ class Compiler
     for id, service of services
       do (id, service) =>
         lambda = (c) =>
-          cl = require service.module
+          cl = @require service.module
           args = []
           if service.arguments?
             args = @resolveDeps c, service.arguments
@@ -51,6 +51,12 @@ class Compiler
 
   nake: (key) ->
     key.replace(/^(@|%)/, '').replace(/%$/, '')
+
+  require: (module) ->
+    if module.indexOf("/") > 0
+      module = "#{process.cwd()}/#{module}"
+
+    require module
 
   getContainer: () ->
     @container

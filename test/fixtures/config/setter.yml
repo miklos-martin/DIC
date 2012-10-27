@@ -3,7 +3,7 @@ parameters:
 
 services:
   setter:
-    module: "../test/fixtures/setter"
+    module: "test/fixtures/setter"
     calls:
       setData:
         arguments:
