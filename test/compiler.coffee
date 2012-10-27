@@ -77,3 +77,15 @@ describe 'Compiler', ->
         setter.data.should.equal container.get 'setdata'
 
         done()
+
+    it 'should handle non instantiatable services as well', (done) ->
+      yaml = "#{__dirname}/fixtures/config/exportsobject.yml"
+      compiler.load yaml, ->
+        obj = container.get('readyobject')
+        obj.should.have.property 'foo'
+        obj.should.have.property 'bar'
+
+        obj.foo.should.equal 'foo'
+        obj.bar.should.equal 'bar'
+
+        done()

@@ -1,0 +1,3 @@
+services:
+  readyobject:
+    module: 'test/fixtures/exportsobject'

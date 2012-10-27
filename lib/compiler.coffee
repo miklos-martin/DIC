@@ -23,12 +23,15 @@ class Compiler
       do (id, service) =>
         lambda = (c) =>
           cl = @require service.module
-          args = []
-          if service.arguments?
-            args = @resolveDeps c, service.arguments
+          if typeof cl is "function"
+            args = []
+            if service.arguments?
+              args = @resolveDeps c, service.arguments
 
-          obj = new cl
-          cl.apply obj, args
+            obj = new cl
+            cl.apply obj, args
+          else
+            obj = cl
 
           if service.calls?
             for method, call of service.calls
