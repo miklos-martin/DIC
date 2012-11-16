@@ -1,7 +1,6 @@
 This is a cool DIC for node projects, written in coffeescript.
 
 The container itself couldn't be more simple, it's based on [twittee](https://github.com/fabpot/twittee "Twittee").
-And there is a compiler for this container, and it
 
 You can use the container directly, like this:
 ```coffeescript
