@@ -7,7 +7,7 @@
     <meta name="description" content="DIC : Dependency Injection Container" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-    <link rel="shortcut icon" href="favicon.ico"> 
+
     <title>DIC</title>
   </head>
 
@@ -31,32 +31,99 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>Welcome to GitHub Pages.</h3>
+        <p>This is a cool DIC for node projects, written in coffeescript.</p>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>The container itself couldn't be more simple, it's based on <a href="https://github.com/fabpot/twittee" title="Twittee">twittee</a>.
+And there is a compiler for this container, and it</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<p>You can use the container directly, like this:</p>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<div class="highlight"><pre><span class="nx">describe</span> <span class="s">'DIC'</span><span class="p">,</span> <span class="o">-&gt;</span>
+  <span class="nx">it</span> <span class="s">' should set a parameter'</span><span class="p">,</span> <span class="o">-&gt;</span>
+    <span class="nx">container</span><span class="p">.</span><span class="nx">set</span> <span class="s">'key'</span><span class="p">,</span> <span class="s">'value'</span>
+    <span class="nx">container</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">'key'</span><span class="p">).</span><span class="nx">should</span><span class="p">.</span><span class="nx">equal</span> <span class="s">'value'</span>
 
-<h3>Designer Templates</h3>
+  <span class="nx">it</span> <span class="s">'should be capable to register callable services'</span><span class="p">,</span> <span class="o">-&gt;</span>
+    <span class="nx">container</span><span class="p">.</span><span class="nx">set</span> <span class="s">'callable'</span><span class="p">,</span> <span class="o">-&gt;</span>
+      <span class="o">-&gt;</span> <span class="s">'foo'</span>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+    <span class="nv">callable = </span><span class="nx">container</span><span class="p">.</span><span class="nx">get</span> <span class="s">'callable'</span>
+    <span class="nx">callable</span><span class="p">().</span><span class="nx">should</span><span class="p">.</span><span class="nx">equal</span> <span class="s">'foo'</span>
 
-<h3>Rather Drive Stick?</h3>
+  <span class="nx">it</span> <span class="s">'should allow to inject parameters'</span><span class="p">,</span> <span class="o">-&gt;</span>
+    <span class="nx">container</span><span class="p">.</span><span class="nx">set</span> <span class="s">'usesparam'</span><span class="p">,</span> <span class="nf">(c) -&gt;</span>
+      <span class="k">return</span> <span class="nx">c</span><span class="p">.</span><span class="nx">get</span> <span class="s">'key'</span>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+    <span class="nx">container</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">'usesparam'</span><span class="p">).</span><span class="nx">should</span><span class="p">.</span><span class="nx">equal</span> <span class="s">'value'</span>
 
-<h3>Authors and Contributors</h3>
+  <span class="nx">it</span> <span class="s">'should inject services as well'</span><span class="p">,</span> <span class="o">-&gt;</span>
+    <span class="nx">container</span><span class="p">.</span><span class="nx">set</span> <span class="s">'usesservice'</span><span class="p">,</span> <span class="nf">(c) -&gt;</span>
+      <span class="o">-&gt;</span> <span class="nx">c</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">'callable'</span><span class="p">)()</span>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+    <span class="nv">callable = </span><span class="nx">container</span><span class="p">.</span><span class="nx">get</span> <span class="s">'usesservice'</span>
+    <span class="nx">callable</span><span class="p">().</span><span class="nx">should</span><span class="p">.</span><span class="nx">equal</span> <span class="s">'foo'</span>
+</pre></div>
 
-<h3>Support or Contact</h3>
+<p>It's not so fun to do this way, but parameters and services can also be described in yaml files.</p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>Here is an example:</p>
+
+<div class="highlight"><pre><span class="c1"># parameters.yml</span>
+<span class="l-Scalar-Plain">parameters</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">param</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Value from parameters.yml</span>
+  <span class="l-Scalar-Plain">param_two</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">This is an other value</span>
+</pre></div>
+
+<p>If you tell the <code>compiler</code> to load this <code>yml</code>, it will set those params to the container.</p>
+
+<div class="highlight"><pre><span class="nx">describe</span> <span class="s">'.compileParameters'</span><span class="p">,</span> <span class="o">-&gt;</span>
+    <span class="nx">it</span> <span class="s">'should parse a yaml and set the parameters from it'</span><span class="p">,</span> <span class="nf">(done) -&gt;</span>
+      <span class="nv">yaml = </span><span class="s">"path/to/parameters.yml"</span>
+      <span class="nx">compiler</span><span class="p">.</span><span class="nx">load</span> <span class="nx">yaml</span><span class="p">,</span> <span class="o">-&gt;</span>
+        <span class="nx">container</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">'param'</span><span class="p">).</span><span class="nx">should</span><span class="p">.</span><span class="nx">equal</span> <span class="s">'Value from parameters.yml'</span>
+        <span class="nx">container</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">'param_two'</span><span class="p">).</span><span class="nx">should</span><span class="p">.</span><span class="nx">equal</span> <span class="s">'This is an other value'</span>
+        <span class="nx">done</span><span class="p">()</span>
+</pre></div>
+
+<p>You can specify services as well. A service can be any module.
+The compiler will check if you gave a path, or a modulename. If a path is given it has to be relative to your project's root directory.</p>
+
+<div class="highlight"><pre><span class="c1"># services.yml</span>
+
+<span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">foo</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="s">'test/fixtures/foo'</span>
+</pre></div>
+
+<p>You can pass arguments to a service's constructor (if it is a class, of course). The compiler will decide, if the given module needs to be initiated or not.
+It will recognize, if an argument is a parameter if you put it's name between % signs. You can indicate a service with an @ at the beginning - like in <a href="https://github.com/symfony/symfony" title="Symfony 2">symfony</a>:</p>
+
+<div class="highlight"><pre><span class="c1"># services.yml</span>
+
+<span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">bar</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="s">'test/fixtures/bar'</span>
+    <span class="l-Scalar-Plain">arguments</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">'injected'</span><span class="p-Indicator">,</span> <span class="s">'%param%'</span><span class="p-Indicator">,</span> <span class="s">'@foo'</span><span class="p-Indicator">]</span>
+</pre></div>
+
+<p>You can also use setter injection:</p>
+
+<div class="highlight"><pre><span class="c1"># services.yml</span>
+
+<span class="l-Scalar-Plain">parameters</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">setdata</span><span class="p-Indicator">:</span> <span class="s">"this</span><span class="nv"> </span><span class="s">has</span><span class="nv"> </span><span class="s">been</span><span class="nv"> </span><span class="s">injected</span><span class="nv"> </span><span class="s">by</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">set*</span><span class="nv"> </span><span class="s">method"</span>
+
+<span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">setter</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">module</span><span class="p-Indicator">:</span> <span class="s">"test/fixtures/setter"</span>
+    <span class="l-Scalar-Plain">calls</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">setData</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">arguments</span><span class="p-Indicator">:</span>
+          <span class="p-Indicator">-</span> <span class="s">'%setdata%'</span>
+</pre></div>
+
+<p>Note, that you can load <code>yamls</code> as many times as you want, and it will add and add again to the same container, overriding existing keys.
+Also note, that the container is super-lazy. A service gets initiated the first time it's called.</p>
       </section>
     </div>
 
