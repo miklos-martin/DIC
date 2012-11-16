@@ -19,3 +19,10 @@ describe 'DIC', ->
       return c.get 'key'
 
     container.get('usesparam').should.equal 'value'
+  
+  it 'should inject services as well', ->
+    container.set 'usesservice', (c) ->
+      -> c.get('callable')()
+    
+    callable = container.get 'usesservice'
+    callable().should.equal 'foo'
