@@ -12,7 +12,7 @@ class Compiler
       @compileParameters definitions.parameters if definitions.parameters?
       @compileServices definitions.services if definitions.services?
 
-      callback()
+      callback?()
 
   compileParameters: (parameters) ->
     for key, parameter of parameters
