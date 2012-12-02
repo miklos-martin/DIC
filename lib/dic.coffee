@@ -12,4 +12,7 @@ class DIC
     catch e
       return @values[key]
 
+  has: (key) ->
+    return key of @values
+
 module.exports = new DIC

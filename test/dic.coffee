@@ -26,3 +26,8 @@ describe 'DIC', ->
     
     callable = container.get 'usesservice'
     callable().should.equal 'foo'
+
+  describe '.has()', ->
+    it 'should tell if the container has something with the given key or not', ->
+      container.has('usesservice').should.be.true
+      container.has('nonexistingkey').should.be.false
