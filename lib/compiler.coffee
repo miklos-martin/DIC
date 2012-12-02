@@ -4,15 +4,11 @@ class Compiler
     @yaml = require 'js-yaml'
 
   load: (file, callback = ->) ->
-    fs = require 'fs'
-    fs.readFile file, (err, data) =>
-      throw err if err
+    definitions = require file
+    @compileParameters definitions.parameters if definitions.parameters?
+    @compileServices definitions.services if definitions.services?
 
-      definitions = @yaml.load data
-      @compileParameters definitions.parameters if definitions.parameters?
-      @compileServices definitions.services if definitions.services?
-
-      callback?()
+    callback?(@container)
 
   compileParameters: (parameters) ->
     for key, parameter of parameters
