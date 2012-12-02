@@ -7,10 +7,13 @@ class DIC
     @values[key] = value
 
   get: (key) ->
-    try
-      return @values[key] @
-    catch e
-      return @values[key]
+    if @has key
+      try
+        return @values[key] @
+      catch e
+        return @values[key]
+    else
+      return require key
 
   has: (key) ->
     return key of @values

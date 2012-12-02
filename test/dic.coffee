@@ -27,6 +27,10 @@ describe 'DIC', ->
     callable = container.get 'usesservice'
     callable().should.equal 'foo'
 
+  it 'should handle native modules automatically', ->
+    # which means you don't have to register for example 'fs' to retrieve it from the container
+    container.get('fs').should.equal( require 'fs' )
+
   describe '.has()', ->
     it 'should tell if the container has something with the given key or not', ->
       container.has('usesservice').should.be.true
