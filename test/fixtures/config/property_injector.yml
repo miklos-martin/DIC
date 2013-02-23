@@ -1,0 +1,6 @@
+services:
+  foo:
+    module: 'test/fixtures/foo'
+    properties:
+      bar: 'bar setted as property'
+      barService: '@bar'

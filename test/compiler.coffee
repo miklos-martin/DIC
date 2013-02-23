@@ -101,3 +101,15 @@ describe 'Compiler', ->
         obj.bar.should.equal 'bar'
 
         done()
+
+    it 'should do property injection', (done) ->
+      yaml = "#{__dirname}/fixtures/config/property_injector.yml"
+      compiler.load yaml, (dic) ->
+        foo = dic.get 'foo'
+        foo.bar.should.equal 'bar setted as property'
+
+        foo.should.have.property 'barService'
+        foo.barService.should.have.property 'injected'
+        foo.barService.injected.should.equal 'injected'
+
+        done()
