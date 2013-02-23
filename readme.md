@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/miklos-martin/DIC.png?branch=master)](https://travis-ci.org/miklos-martin/DIC)
+
 This is a cool DIC for node projects, written in coffeescript.
 
 The container itself couldn't be more simple, it's based on [twittee](https://github.com/fabpot/twittee "Twittee").
