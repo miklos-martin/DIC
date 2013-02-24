@@ -31,6 +31,19 @@ describe 'DIC', ->
     # which means you don't have to register for example 'fs' to retrieve it from the container
     container.get('fs').should.equal( require 'fs' )
 
+  it 'should not be a problem to have circular references', ->
+    container.set 'circularServiceA', (c) ->
+      CircularService = require "#{__dirname}/fixtures/circularService"
+      new CircularService c.get 'circularServiceB'
+    container.set 'circularServiceB', (c) ->
+      CircularService = require "#{__dirname}/fixtures/circularService"
+      new CircularService c.get 'circularServiceA'
+
+    circular = container.get 'circularServiceA'
+    circular.should.have.property 'otherService'
+    circular.otherService.should.have.property 'otherService'
+    circular.otherService.otherService.should.have.property 'otherService'
+
   describe '.has()', ->
     it 'should tell if the container has something with the given key or not', ->
       container.has('usesservice').should.be.true
