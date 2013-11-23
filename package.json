@@ -15,7 +15,7 @@
         "install":"cake build",
         "test":"cake test"
     },
-    "main":"lib/dic.js",
+    "main":"lib/main.js",
     "repository":{
         "type":"git",
         "url":"https://github.com/miklos-martin/DIC"
