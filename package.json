@@ -1,10 +1,23 @@
 {
-    "name":"csdic",
+    "name":"dic",
     "description":"Dependency Injection Container",
     "version":"0.0.1",
     "private":true,
     "dependencies":{
-        "chai":"1.2.x",
-        "js-yaml":"1.0.x"
+        "js-yaml":"1.0.x",
+        "coffee-script":"1.6.3"
+    },
+    "devDependencies":{
+        "mocha":"1.14.0",
+        "chai":"1.2.x"
+    },
+    "scripts": {
+        "install":"cake build",
+        "test":"cake test"
+    },
+    "main":"lib/dic.js",
+    "repository":{
+        "type":"git",
+        "url":"https://github.com/miklos-martin/DIC"
     }
 }
