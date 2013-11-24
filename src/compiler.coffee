@@ -8,12 +8,13 @@ class Compiler
   constructor: () ->
     @container = require './dic'
     @yaml = require 'js-yaml'
+    @fs = require 'fs'
 
   ##
   # Loading a yml config file
   ##
   load: (file, callback = ->) ->
-    definitions = require file
+    definitions = @yaml.safeLoad @fs.readFileSync(file, { encoding: 'UTF-8' })
     @compileParameters definitions.parameters if definitions.parameters?
     @compileServices definitions.services if definitions.services?
 
